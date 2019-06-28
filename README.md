@@ -1,20 +1,23 @@
 # Convolutional Neural Network Visualizations 
 
+This repository contains a number of convolutional neural network visualization techniques implemented in PyTorch.
+
 **Note**: I removed cv2 dependencies and moved the repository towards PIL. A few things might be broken (although I tested all methods), I would appreciate if you could create an issue if something does not work.
 
 ## Implemented Techniques
-This repo contains following CNN visualization techniques implemented in Pytorch: 
 
 * [Gradient visualization with vanilla backpropagation](#gradient-visualization)
 * [Gradient visualization with guided backpropagation](#gradient-visualization) [1]
 * [Gradient visualization with saliency maps](#gradient-visualization) [4]
-* [Gradient-weighted [3] class activation mapping](#gradient-visualization) [2] 
+* [Gradient-weighted class activation mapping](#gradient-visualization) [2] 
 * [Guided, gradient-weighted class activation mapping](#gradient-visualization) [3]
 * [Smooth grad](#smooth-grad) [8]
 * [CNN filter visualization](#convolutional-neural-network-filter-visualization) [9]
 * [Inverted image representations](#inverted-image-representations) [5]
 * [Deep dream](#deep-dream) [10]
 * [Class specific image generation](#class-specific-image-generation) [4]
+* [Grad times image](#grad-times-image) [12]
+* [Integrated gradients](#gradient-visualization) [13]
 
  I moved following **Adversarial example generation** techniques [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks) to separate visualizations from adversarial stuff.
  
@@ -22,11 +25,6 @@ This repo contains following CNN visualization techniques implemented in Pytorch
 	- Fast Gradient Sign, Targeted [11]
 	- Gradient Ascent, Adversarial Images [7]
 	- Gradient Ascent, Fooling Images (Unrecognizable images predicted as classes with high confidence) [7]
-
-I also plan to include following techniques when I have some time:
-
-* Weakly supervised object segmentation [4]
-* Semantic Segmentation with Deconvolutions [6]
 
 ## General Information
 
@@ -39,6 +37,20 @@ All images are pre-processed with mean and std of the ImageNet dataset before be
 I tried to comment on the code as much as possible, if you have any issues understanding it or porting it, don't hesitate to send an email or create an issue.
 
 Below, are some sample results for each operation.
+
+## Citation
+
+If you find the code in this repository useful for your research consider citing it.
+
+	@misc{uozbulak_pytorch_vis_2019,
+	  author = {Utku Ozbulak},
+	  title = {PyTorch CNN Visualizations},
+	  year = {2019},
+	  publisher = {GitHub},
+	  journal = {GitHub repository},
+	  howpublished = {\url{https://github.com/utkuozbulak/pytorch-cnn-visualizations}},
+	  commit = {3460e7f014f52f4099c1a4864e1534de9cc901e7}
+	}
 
 
 ## Gradient Visualization
@@ -121,8 +133,41 @@ Below, are some sample results for each operation.
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_GGrad_Cam_gray.jpg"> </td>
 			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_GGrad_Cam_gray.jpg"> </td>
 		</tr>
+    <tr>
+			<td width="19%" align="center"> Integrated Gradients <br />  </td>
+			<td width="27%" > <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_Integrated_G_gray.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_Integrated_G_gray.jpg"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_Integrated_G_gray.jpg"> </td>
+		</tr>
 	</tbody>
 </table>
+
+## Grad Times Image
+Another technique that is proposed is simply multiplying the gradients with the image itself. Results obtained with the usage of multiple gradient techniques are below.
+
+<table border=0 width="50px" >
+	<tbody> 
+		<tr>
+			<td width="19%" align="center"> Vanilla Grad <br /> <i>X</i> <br /> Image</td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_Vanilla_grad_times_image_gray.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_Vanilla_grad_times_image_gray.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_Vanilla_grad_times_image_gray.jpg"> </td>
+		</tr>
+		<tr>
+			<td width="19%" align="center"> Guided Grad <br /> <i>X</i> <br /> Image</td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_Guided_grad_times_image_gray.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_Guided_grad_times_image_gray.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_Guided_grad_times_image_gray.jpg"> </td>
+		</tr>
+		<tr>
+			<td width="19%" align="center"> Integrated Grad <br /> <i>X</i> <br /> Image</td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/snake_Integrated_grad_times_image_gray.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/cat_dog_Integrated_grad_times_image_gray.jpg"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/gradient_visualizations/spider_Integrated_grad_times_image_gray.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
 
 ## Smooth Grad
 Smooth grad is adding some Gaussian noise to the original image and calculating gradients multiple times and averaging the results [8]. There are two examples at the bottom which use _vanilla_ and _guided_ backpropagation to calculate the gradients. Number of images (_n_) to average over is selected as 50. _σ_ is shown at the bottom of the images.
@@ -184,6 +229,22 @@ CNN filters can be visualized when we optimize the input image with respect to o
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f4.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f17.jpg"> </td>
 			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/results/layer_visualizations/layer_vis_l24_f22.jpg"> </td>
+		</tr>
+	</tbody>
+</table>
+
+Another way to visualize CNN layers is to to visualize activations for a specific input on a specific layer and filter. This was done in [1] Figure 3. Below example is obtained from layers/filters of VGG16 for the first image using guided backpropagation. The code for this opeations is in *layer_activation_with_guided_backprop.py*. The method is quite similar to guided backpropagation but instead of guiding the signal from the last layer and a specific target, it guides the signal from a specific layer and filter. 
+
+<table border=0 width="50px" >
+	<tbody> 
+    <tr>		<td width="27%" align="center"> Input Image </td>
+			<td width="27%" align="center"> Layer Vis. (Filter=0)</td>
+			<td width="27%" align="center"> Filter Vis. (Layer=29)</td>
+		</tr>
+<tr>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/pytorch-cnn-visualizations/master/input_images/spider.png"> </td>
+			<td width="27%"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/spider_layer_graph.gif"> </td>
+			<td width="27%" align="center"> <img src="https://raw.githubusercontent.com/utkuozbulak/cnn-gifs/master/spider_filter_graph.gif"> </td>
 		</tr>
 	</tbody>
 </table>
@@ -277,14 +338,6 @@ The samples below show the produced image with no regularization, l1 and l2 regu
 
 Produced samples can further be optimized to resemble the desired target class, some of the operations you can incorporate to improve quality are; blurring, clipping gradients that are below a certain treshold, random color swaps on some parts, random cropping the image, forcing generated image to follow a path to force continuity.
 
-## Adversarial Example Generation with Fast Gradient Sign
- Adversarial example generation techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
-
-## Adversarial Example Generation with Gradient Ascent
- Adversarial example generation techniques  have been moved to [here](https://github.com/utkuozbulak/pytorch-cnn-adversarial-attacks).
-
-
-
 ## Requirements:
 ```
 torch >= 0.4.0
@@ -293,7 +346,6 @@ numpy >= 1.13.0
 matplotlib >= 1.5
 PIL >= 1.1.7
 ```
-
 
 ## References:
 
@@ -318,4 +370,8 @@ PIL >= 1.1.7
 [10] A. Mordvintsev, C. Olah, M. Tyka. *Inceptionism: Going Deeper into Neural Networks* https://research.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html
 
 [11] I. J. Goodfellow, J. Shlens, C. Szegedy. *Explaining and Harnessing Adversarial Examples* https://arxiv.org/abs/1412.6572
+
+[12] A. Shrikumar, P. Greenside, A. Shcherbina, A. Kundaje. *Not Just a Black Box: Learning Important Features Through Propagating Activation Differences* https://arxiv.org/abs/1605.01713
+
+[13] M. Sundararajan, A. Taly, Q. Yan. *Axiomatic Attribution for Deep Networks* https://arxiv.org/abs/1703.01365
 
